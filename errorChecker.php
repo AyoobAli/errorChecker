@@ -2,7 +2,7 @@
 
 /**
  * 
- * PHP Error Checker v0.1
+ * PHP Error Checker v0.2
  * By AyoobAli.com
  * 
  */
