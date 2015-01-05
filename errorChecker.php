@@ -72,9 +72,7 @@ if ( $path && $site ) {
 			$filePath = $itr->getSubPathName();
 			$filePath = str_replace( "\\", "/", $filePath );
 
-			if ( substr( $filePath, -4 ) != ".png" && substr( $filePath, -4 ) != ".jpg" && substr( $filePath, -4 ) !=
-				".css" && substr( $filePath, -3 ) != ".js" && substr( $filePath, -5 ) != ".scss" && substr( $filePath, -4 ) !=
-				".gif" && substr( $filePath, -4 ) != ".svg" ) {
+			if ( substr( $filePath, -4 ) != ".png" && substr( $filePath, -4 ) != ".jpg" && substr( $filePath, -4 ) != ".gif" ) {
 
 				$GetData = @file_get_contents( $site . $filePath );
 				$GetData = strtolower( $GetData );
