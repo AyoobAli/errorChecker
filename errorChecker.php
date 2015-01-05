@@ -44,6 +44,9 @@ echo "Ex.: errorChecker.php \"/var/www/script\" \"http://localhost/script\" \"Te
 if ( $path && $site ) {
 	$dir = new RecursiveDirectoryIterator( $path );
 	$itr = new RecursiveIteratorIterator( $dir );
+	$ittl = iterator_count( $itr );
+	$itr->rewind();
+	$ttl = 0;
 	$num = 0;
 	$err = 0;
 	$ftl = 0;
@@ -51,6 +54,7 @@ if ( $path && $site ) {
 	$wrn = 0;
 	$ntc = 0;
 	$cst = 0;
+	$sct = "";
 	$CustomText = "";
 
 	echo "Path: " . $path . "\n";
@@ -65,14 +69,20 @@ if ( $path && $site ) {
 	echo $spline;
 
 	while ( $itr->valid() ) {
+		$ttl++;
+		$filePath = $itr->getSubPathName();
+		$filePath = str_replace( "\\", "/", $filePath );
+
+		echo str_repeat( " ", strlen( $sct ) ) . "\r";
+		$sct = "     Scanning      : " . $ttl . " / " . $ittl . "      [" . $filePath . "]\r";
+		echo $sct;
 
 		$errMsg = "";
 		if ( !$itr->isDot() ) {
 
-			$filePath = $itr->getSubPathName();
-			$filePath = str_replace( "\\", "/", $filePath );
 
-			if ( substr( $filePath, -4 ) != ".png" && substr( $filePath, -4 ) != ".jpg" && substr( $filePath, -4 ) != ".gif" ) {
+			if ( substr( $filePath, -4 ) != ".png" && substr( $filePath, -4 ) != ".jpg" && substr( $filePath, -4 ) !=
+				".gif" ) {
 
 				$GetData = @file_get_contents( $site . $filePath );
 				$GetData = strtolower( $GetData );
@@ -89,7 +99,7 @@ if ( $path && $site ) {
 						$cstTxt = strpos( $GetData, strtolower( $argv[$i] ) );
 						if ( $cstTxt ) {
 							$cst++;
-                            $errMsg .= "\"" . strtolower( $argv[$i] ) . "\", ";
+							$errMsg .= "\"" . strtolower( $argv[$i] ) . "\", ";
 
 						}
 					}
@@ -115,18 +125,19 @@ if ( $path && $site ) {
 
 				if ( $errMsg ) {
 					$num++;
-					echo $num . ' - ' . $site . $filePath . " [";
-					echo substr( $errMsg, 0, -2 ) . "]\n";
+					echo str_repeat( " ", strlen( $sct ) ) . "\r";
+					echo "\r" . $num . ' - ' . $site . $filePath . " [" . substr( $errMsg, 0, -2 ) . "]\n";
 				}
 
 			}
 
 		}
 
-		$itr->next();
+		$itr->Next();
 	}
 
 	echo $spline;
+	echo "Scanned Files\t: " . $ttl . " / " . $ittl . "\n";
 	if ( $Error['Fatal'] ) {
 		echo "Fatal error\t: " . $ftl . "\n";
 	}
