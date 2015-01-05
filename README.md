@@ -23,3 +23,8 @@ And the second argument "http://127.0.0.1/WebAppToCheck" is the URL of the scrip
 
 
 *NOTE:* DON'T place the tool in the same directory of your web application, it will cause an endless loop.
+
+![ScreenShot](http://www.ayoobali.com/wp-content/uploads/2015/01/err01.png)
+
+![ScreenShot](http://www.ayoobali.com/wp-content/uploads/2015/01/err02.png)
+
